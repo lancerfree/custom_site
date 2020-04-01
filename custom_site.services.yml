@@ -1,0 +1,10 @@
+services:
+ #Access to the site
+  custom_site.restrict_access:
+    class: Drupal\custom_site\HttpMiddleware\SiteRestrictAccess
+    tags:
+      - { name: http_middleware , priority: 201 }
+  custom_site.page_cache_request_policy.api_authenticate_allow:
+    class: Drupal\custom_site\PageCache\APIAuthenticateAllowRequestPolicy
+    tags:
+      - { name: page_cache_request_policy }

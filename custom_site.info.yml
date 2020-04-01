@@ -1,0 +1,9 @@
+name: Custom Site
+description: Custom module for common goals
+package: Custom
+type: module
+
+core: '8.x'
+
+
+

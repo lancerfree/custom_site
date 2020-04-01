@@ -1,0 +1,5 @@
+.taxonomy-term-news-tags-form details,
+.taxonomy-term-events-tags-form details,
+.taxonomy-term-places-form details {
+    display: none;
+}

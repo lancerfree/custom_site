@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implements hook_page_attachments().
+ */
+function custom_site_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'custom_site/site';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function custom_site_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /* @var Drupal\Core\Entity\FieldableEntityInterface $entity */
+  $formObject = $form_state->getFormObject();
+  if ($formObject instanceof \Drupal\Core\Entity\EntityFormInterface) {
+    $entity = $formObject->getEntity();
+    if (
+    in_array($entity->getEntityTypeId(), ['node', 'taxonomy_term'])
+      //    && in_array($entity->bundle(), ['organisation', 'location', 'event', 'article'])
+    ) {
+      $form['#attached']['library'][] = 'custom_site/entity_forms';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function custom_site_preprocess_page(&$variables) {
+  if (
+  isset($GLOBALS['custom_site_hide_regions'])
+  ) {
+    unset($variables['page']['sidebar_first'], $variables['page']['header'],
+      $variables['page']['breadcrumb'],
+      $variables['page']['highlighted']
+    );
+  }
+
+}
